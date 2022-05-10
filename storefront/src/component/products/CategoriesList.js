@@ -1,27 +1,30 @@
 import { connect } from 'react-redux';
-import { active, inactive } from '../../store/Categories'
+import { updateCategory, reset } from '../../store/Categories'
 
-function categoriesList({ categories, active, inactive }) {
-console.log(categories)
+function categoriesList({ categories, activeCategory, updateCategory, reset, active }) {
+console.log('HERE', activeCategory)
   return (
     <div>
       {categories.map(category => (
-        <button key={category.id} onClick={() => active(category)}>{category.normalName}</button>
+        <button key={category.id} onClick={() => updateCategory(category)}>{category.dispName}</button>
         ))}
-        <button onClick={inactive}>RESET</button>
+        {active ?
+        <button onClick={() => reset()}>RESET</button> : null
+        }
     </div>
   )
 }
 
 const mapStateToProps = ({ categories }) => {
   return {
-    categories: categories.categories
+    categories: categories.categories,
+    active: categories.active
   }
 }
 
 const mapDispatchToProps = {
-  active,
-  inactive
+ updateCategory,
+ reset
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(categoriesList)

@@ -1,46 +1,48 @@
 const initialState = {
-  categories:[
-    {id: 1, name: 'Electronics', normalName: 'Electronics', dispName:'ELECTRONICS', description: 'Something about product'},
-    {id: 2, name: 'Food', normalName: 'Food', dispName:'FOOD', description: 'Something about food'}
+  categories: [
+    {
+      id: 1,
+      name: "electronics",
+      dispName: "ELECTRONICS",
+      description: "Something about product",
+      isActive: false,
+    },
+    {
+      id: 2,
+      name: "food",
+      dispName: "FOOD",
+      description: "Something about food",
+      isActive: false,
+    },
   ],
-  active: 'Electronics'
-}
+  active: "",
+};
 
 function categoryReducer(state = initialState, action) {
-  
   switch (action.type) {
-    case 'ACTIVE':
+    case "UPDATEACTIVE":
       return {
-        ...state,
-        categories: state.categories.map(category => {
-          if(category.name === action.payload.name) {
-            return {
-              name: category.name, 
-              normalName: category.normalName
-            }
-          }
-          return category;
-        }),
-        // active: state.category.name
+        categories: state.categories,
+        active: action.payload.name
       }
-      case 'INACTIVE':
+      case "RESET":
         return initialState;
       default:
-        return state;
+        return state
+    }
   }
-}
 
-export const active = (category) => {
-  return {
-    type: 'ACTIVE',
-    payload: category
+  export const updateCategory = (category) => {
+    return{
+      type: "UPDATEACTIVE",
+      payload: category
+    }
   }
-}
 
-export const inactive = () => {
-  return {
-    type: 'INACTIVE',
+  export const reset = () => {
+    return{
+      type: "RESET"
+    }
   }
-}
 
-export default categoryReducer;
+  export default categoryReducer;
