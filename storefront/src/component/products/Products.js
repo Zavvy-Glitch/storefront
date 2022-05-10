@@ -39,14 +39,14 @@ function productsReducer (state = initialState, action) {
   }
 
 
-
-export const updateList = (category) => {
+// actions creator
+export const updateProduct = (category) => {
   return {
     type: 'UDPATEACTIVE',
     payload: category
   }
 }
-
+//actions creator
 export const reset = () => {
   return{
     type: "RESET"
