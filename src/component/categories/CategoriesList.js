@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 
-
 export default function CategoriesList() {
   const [state, setState] = React.useState({
     left: false,
@@ -25,7 +24,7 @@ export default function CategoriesList() {
   
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === "left" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
