@@ -1,16 +1,17 @@
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { updateList, reset } from "../../store/Products";
 
-function ProductList({ products, filterProduct }) {
-  console.log(products, filterProduct)
+export default function ProductList() {
+
+ let products = useSelector(state => state.products.filterProduct)
+  
   return (
     <Box>
-      {filterProduct.length ?
-      filterProduct.map((product) => (
+      {products.length ?
+      products.map((product) => (
         <Card key={product.id}>
           <CardContent>
             <Typography>{product.name}</Typography>
@@ -23,17 +24,3 @@ function ProductList({ products, filterProduct }) {
     </Box>
   );
 }
-
-const mapStateToProps = ({ products }) => {
-  return {
-    products: products.products,
-    filterProduct: products.filterProduct
-  }
-}
-
-const mapDispatchToProps = {
-  updateList,
-  reset
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductList)
