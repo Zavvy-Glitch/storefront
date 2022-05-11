@@ -22,9 +22,18 @@ export default function CategoriesList() {
     setState({ ...state, [anchor]: open });
   };
   
+  let categories = useSelector((state) => state.categories.categories);
+  let active = useSelector((state) => state.categories.active);
+  let dispatch = useDispatch();
+  
+  const handleCategory = (category) => {
+    let action = updateCategory(category);
+    dispatch(action);
+  };
+  
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{ width: anchor === "left" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
@@ -40,16 +49,6 @@ export default function CategoriesList() {
       <Divider />
     </Box>
   );
-  
-  let categories = useSelector((state) => state.categories.categories);
-  let active = useSelector((state) => state.categories.active);
-  let dispatch = useDispatch();
-
-  const handleCategory = (category) => {
-    let action = updateCategory(category);
-    dispatch(action);
-  };
-
   const handleReset = () => {
     let action = reset();
     dispatch(action);
