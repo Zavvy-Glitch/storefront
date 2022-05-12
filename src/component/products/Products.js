@@ -1,57 +1,78 @@
 const initialState = {
   products: [
-    { 
+    {
       id: 1,
-      category: 'electronics', 
-      name:'Computer' , 
-      description: 'NEWLY USED / 2016 HP', 
-      price:'FREE', 
+      category: "electronics",
+      name: "Computer",
+      description: "NEWLY USED / 2016 HP",
+      price: "FREE",
       inventoryCount: 100,
-    }, 
+    },
     {
       id: 2,
-      category: 'food',
-      name: 'Banana',
-      description: 'It\'s yellow',
-      price:'FREE',
+      category: "food",
+      name: "Banana",
+      description: "It's yellow",
+      price: "FREE",
       inventoryCount: 50,
-    }
+    },
   ],
-  filterProduct: []
-}
+  filterProduct: [],
+};
 
-function productsReducer (state = initialState, action) {
-
+function productsReducer(state = initialState, action) {
   switch (action.type) {
-    case 'UPDATEACTIVE':
+    case "UPDATEACTIVE":
       return {
         ...state,
-        filterProduct: state.products.filter(product => product.category === action.payload.name)
+        filterProduct: state.products.filter(
+          (product) => product.category === action.payload.name
+        ),
+      };
+    case "ADDTOCART":
+      console.log(state)
+      return {
+        ...state,
+        products: state.products.map( product => {
+          if(product.name === action.payload){
+            product.inventoryCount = product.inventoryCount - 1
+          }
+          return product;
+        })
       }
-      case 'RESET':
-        return {
-          ...state,
-          filterProduct: []
-        }
-      default:
-        return state;
-    } 
-  }
+    case "DELETEFROMCART":
+      return {
+        ...state,
+        products: state.products.map( product => {
+          if(product.name === action.payload){
+            product.inventoryCount = product.inventoryCount + 1
+          }
+          return product;
+        })
+      }
 
+    case "RESET":
+      return {
+        ...state,
+        filterProduct: [],
+      };
+    default:
+      return state;
+  }
+}
 
 // actions creator
 export const updateProduct = (category) => {
   return {
-    type: 'UDPATEACTIVE',
-    payload: category
-  }
-}
+    type: "UDPATEACTIVE",
+    payload: category,
+  };
+};
 //actions creator
 export const reset = () => {
-  return{
-    type: "RESET"
-  }
-}
-
+  return {
+    type: "RESET",
+  };
+};
 
 export default productsReducer;
