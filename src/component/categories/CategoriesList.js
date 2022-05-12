@@ -1,74 +1,48 @@
-import * as React from "react";
+import React from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateCategory, reset } from "../../store/Categories";
+import { updateCategory, getCategory, reset } from "../../store/Categories";
 import Box from "@mui/material/Box";
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 
-export default function CategoriesList() {
-  const [state, setState] = React.useState({
-    left: false,
-  });
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-      ) {
-      return;
-    }
-    setState({ ...state, [anchor]: open });
-  };
-  
-  let categories = useSelector((state) => state.categories.categories);
-  let active = useSelector((state) => state.categories.active);
+const CategoriesList = () => {
   let dispatch = useDispatch();
+
+  let categories = useSelector((state) => state.category.categories);
   
   const handleCategory = (category) => {
     let action = updateCategory(category);
     dispatch(action);
   };
   
-  const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === "left" || anchor === "bottom" ? "auto" : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-      >
-      <List>
-      {categories.map((category) => (
-        <button key={category.id} onClick={() => handleCategory(category)}>
-          {category.dispName}
-        </button>
-      ))}
-      {active ? <button onClick={() => handleReset()}>RESET</button> : null}
-      </List>
-      <Divider />
-    </Box>
-  );
   const handleReset = () => {
     let action = reset();
     dispatch(action);
   };
   
-  return (
-    <div>
+  useEffect(() => {
+    dispatch(getCategory());
+  },[dispatch]);
+  
+  console.log(categories);
 
-      {["left"].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          <Drawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-          >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
-    </div>
+  return (
+    <Box>
+      <List>
+        {categories.length
+          ? categories[0].results.map((category) => (
+              <button
+                key={category._id}
+                onClick={() => handleCategory(category)}
+              >
+                {category.name}
+              </button>
+            ))
+          : null}
+        <button onClick={() => handleReset()}>RESET</button>
+      </List>
+    </Box>
   );
-}
+};
+
+export default CategoriesList;

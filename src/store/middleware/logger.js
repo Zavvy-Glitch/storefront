@@ -1,4 +1,4 @@
-const logger = store => (next) => (action) => {
+const logger = (store) => (next) => (action) => {
   console.log("___ACTION___", action);
   return next(action);
 }
