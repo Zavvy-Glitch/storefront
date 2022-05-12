@@ -1,9 +1,11 @@
-import { createStore, combineReducers } from 'redux';
+import { legacy_createStore as createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
 
-import categoryReducer from '../component/categories/Categories';
-import productsReducer from '../component/products/Products';
-import cartReducer from '../component/cart/Cart'
+import categoryReducer from './Categories';
+import productsReducer from './Products';
+import cartReducer from './Cart'
+import logger from '../store/middleware/logger';
+import thunk from '../store/middleware/thunk';
 
 let reducers = combineReducers({
   categories: categoryReducer,
@@ -12,5 +14,5 @@ let reducers = combineReducers({
 });
 
 export default function initialStore() {
-  return createStore(reducers, composeWithDevTools());
+  return createStore(reducers, composeWithDevTools(applyMiddleware(thunk, logger)));
 }
