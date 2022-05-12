@@ -8,7 +8,7 @@ import logger from '../store/middleware/logger';
 import thunk from '../store/middleware/thunk';
 
 let reducers = combineReducers({
-  categories: categoryReducer,
+  category: categoryReducer,
   products: productsReducer,
   cart: cartReducer,
 });
