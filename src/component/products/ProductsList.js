@@ -7,7 +7,7 @@ import { addToCart } from "../cart/Cart";
 import { CardActions, Button } from "@mui/material";
 
 export default function ProductList() {
-  let products = useSelector((state) => state.products.filterProduct);
+  let products = useSelector((state) => state.products.products);
 
   let dispatch = useDispatch();
 
