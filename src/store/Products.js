@@ -1,55 +1,47 @@
+import axios from 'axios';
+
 const initialState = {
-  products: [
-    {
-      id: 1,
-      category: "electronics",
-      name: "Computer",
-      description: "NEWLY USED / 2016 HP",
-      price: "FREE",
-      inventoryCount: 100,
-    },
-    {
-      id: 2,
-      category: "food",
-      name: "Banana",
-      description: "It's yellow",
-      price: "FREE",
-      inventoryCount: 50,
-    },
-  ],
+  products: [],
   filterProduct: [],
 };
 
 function productsReducer(state = initialState, action) {
   switch (action.type) {
+    case "GET_PRODUCT": 
+      return {
+        ...state,
+        products: action.payload,
+      };
     case "UPDATEACTIVE":
+      console.log(state)
       return {
         ...state,
         filterProduct: state.products.filter(
           (product) => product.category === action.payload.name
-        ),
-      };
+          ),
+        };
     case "ADDTOCART":
-      console.log(state)
+      console.log('HWYWYWYWYWYWY', state.products, action.payload.name)
       return {
         ...state,
-        products: state.products.map( product => {
-          if(product.name === action.payload){
-            product.inventoryCount = product.inventoryCount - 1
+        products: state.products.map((product) => {
+          if (product.name === action.payload.name) {
+            product.inStock = product.inStock - 1;
           }
+          console.log(product);
           return product;
-        })
-      }
+        }),
+      };
     case "DELETEFROMCART":
       return {
         ...state,
-        products: state.products.map( product => {
-          if(product.name === action.payload){
-            product.inventoryCount = product.inventoryCount + 1
+        products: state.products.map((product) => {
+          if (product.name === action.payload.name) {
+            product.inStock = product.inStock + 1;
           }
           return product;
-        })
-      }
+        }),
+      };
 
     case "RESET":
       return {
@@ -61,18 +53,30 @@ function productsReducer(state = initialState, action) {
   }
 }
 
-// actions creator
+
 export const updateProduct = (category) => {
   return {
     type: "UDPATEACTIVE",
     payload: category,
   };
 };
-//actions creator
+
 export const reset = () => {
   return {
     type: "RESET",
   };
 };
+
+export const getProduct = () => async (dispatch, getState) => {
+  let response = await axios.get('https://api-js401.herokuapp.com/api/v1/products');
+  dispatch(setProduct(response.data.results));
+};
+
+export const setProduct = (data) => {
+  return {
+    type: "GET_PRODUCT",
+    payload: data
+  }
+}
 
 export default productsReducer;

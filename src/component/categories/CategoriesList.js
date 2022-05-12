@@ -23,8 +23,6 @@ const CategoriesList = () => {
   useEffect(() => {
     dispatch(getCategory());
   },[dispatch]);
-  
-  console.log(categories);
 
   return (
     <Box>

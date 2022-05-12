@@ -20,9 +20,9 @@ export default function CartList() {
       <h2>Shopping Cart</h2>
       {cart.length
         ? cart.map((item) => (
-            <Card key={item.id}>
+            <Card key={item._id}>
               <CardContent>
-                <Typography>{item}</Typography>
+                <Typography>{item.name}</Typography>
                 <button onClick={() => handleDelete(item)}>Remove</button>
               </CardContent>
             </Card>

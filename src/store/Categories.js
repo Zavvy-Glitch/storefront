@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 
 const initialState = {
   categories: [],
@@ -16,12 +16,12 @@ export default function categoryReducer(state = initialState, action) {
       return {
         ...state,
         categories: [action.payload],
-      }
+      };
     case "RESET":
       return {
         ...state,
-        active: []
-      }
+        active: [],
+      };
     default:
       return state;
   }
@@ -42,15 +42,16 @@ export const reset = () => {
   };
 };
 
-
 export const getCategory = () => async (dispatch, getState) => {
-  let response = await axios.get(`https://api-js401.herokuapp.com/api/v1/categories`);
-  dispatch(setCategory(response.data))
-}
+  let response = await axios.get(
+    "https://api-js401.herokuapp.com/api/v1/categories"
+  );
+  dispatch(setCategory(response.data));
+};
 
 export const setCategory = (data) => {
   return {
-    type:"GET_CATEGORY",
-    payload: data
-  }
-}
+    type: "GET_CATEGORY",
+    payload: data,
+  };
+};
