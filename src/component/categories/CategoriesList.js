@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateCategory, reset } from "../categories/Categories";
+import { updateCategory, reset } from "../../store/Categories";
 import Box from "@mui/material/Box";
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
@@ -57,7 +57,7 @@ export default function CategoriesList() {
   return (
     <div>
 
-      {["Filter Selection"].map((anchor) => (
+      {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
           <Drawer

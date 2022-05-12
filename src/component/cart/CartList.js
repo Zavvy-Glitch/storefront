@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { deleteFromCart } from "./Cart.js"
+import { deleteFromCart } from "../../store/Cart"
 
 export default function CartList() {
   let cart = useSelector((state) => state.cart.cartItems);

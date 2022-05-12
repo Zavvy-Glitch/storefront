@@ -3,11 +3,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { addToCart } from "../cart/Cart";
+import { addToCart } from "../../store/Cart";
 import { CardActions, Button } from "@mui/material";
 
 export default function ProductList() {
-  let products = useSelector((state) => state.products.products);
+  let products = useSelector((state) => state.products);
 
   let dispatch = useDispatch();
 
@@ -19,8 +19,8 @@ export default function ProductList() {
 
   return (
     <Box>
-      {products.length
-        ? products.map((product) => (
+      {products.products.length
+        ? products.filterProduct.map((product) => (
             <Card key={product.id}>
               <CardContent>
                 <Typography>{product.name}</Typography>
