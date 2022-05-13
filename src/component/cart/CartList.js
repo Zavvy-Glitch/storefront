@@ -14,7 +14,7 @@ export default function CartList() {
     dispatch(action)
   }
 
-  console.log(cart);
+
   return (
     <div>
       <h2>Shopping Cart</h2>

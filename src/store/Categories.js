@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const initialState = {
-  categories: [],
-  active: [],
+  categories: {},
+  active: '',
 };
 
 export default function categoryReducer(state = initialState, action) {
@@ -10,7 +10,7 @@ export default function categoryReducer(state = initialState, action) {
     case "UPDATEACTIVE":
       return {
         categories: state.categories,
-        active: action.payload.name,
+        active: action.payload,
       };
     case "GET_CATEGORY":
       return {
