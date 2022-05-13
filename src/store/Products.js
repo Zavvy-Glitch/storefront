@@ -13,7 +13,6 @@ function productsReducer(state = initialState, action) {
         products: action.payload,
       };
     case "UPDATEACTIVE":
-      console.log(state)
       return {
         ...state,
         filterProduct: state.products.filter(
@@ -21,14 +20,12 @@ function productsReducer(state = initialState, action) {
           ),
         };
     case "ADDTOCART":
-      console.log('HWYWYWYWYWYWY', state.products, action.payload.name)
       return {
         ...state,
         products: state.products.map((product) => {
           if (product.name === action.payload.name) {
             product.inStock = product.inStock - 1;
           }
-          console.log(product);
           return product;
         }),
       };
